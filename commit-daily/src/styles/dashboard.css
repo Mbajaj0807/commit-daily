@@ -1,0 +1,279 @@
+/* src/styles/dashboard.css */
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+  padding-bottom: 80px; /* Space for bottom navigation */
+}
+
+.dashboard-header {
+  padding: 16px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.dashboard-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.dashboard-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #000000;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-logo-circles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+}
+
+.dashboard-logo-circle {
+  width: 6px;
+  height: 6px;
+  background: #FFFFFF;
+  border-radius: 50%;
+}
+
+.dashboard-logo-circle.small {
+  width: 4px;
+  height: 4px;
+}
+
+.dashboard-content {
+  padding: 24px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.dashboard-subtitle {
+  font-size: 15px;
+  color: #6B6B6B;
+  margin-bottom: 32px;
+  line-height: 1.4;
+}
+
+/* Stats Cards Container */
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Streak Card */
+.streak-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.streak-info {
+  flex: 1;
+}
+
+.streak-label {
+  font-size: 15px;
+  color: #6B6B6B;
+  margin-bottom: 4px;
+}
+
+.streak-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -1px;
+}
+
+.streak-unit {
+  font-size: 17px;
+  color: #6B6B6B;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.streak-icon {
+  font-size: 48px;
+  opacity: 0.9;
+}
+
+/* Goal Completion Card */
+.goal-completion-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.goal-completion-info {
+  flex: 1;
+}
+
+.goal-completion-label {
+  font-size: 15px;
+  color: #6B6B6B;
+  margin-bottom: 4px;
+}
+
+.goal-completion-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -1px;
+}
+
+.goal-completion-fraction {
+  font-size: 24px;
+}
+
+.goal-completion-icon {
+  font-size: 48px;
+  opacity: 0.9;
+}
+
+/* Update Today Button */
+.update-today-button {
+  width: 100%;
+  padding: 16px;
+  background: #007AFF;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 8px;
+}
+
+.update-today-button:hover {
+  opacity: 0.9;
+}
+
+.update-today-button:active {
+  opacity: 0.8;
+}
+
+/* Bottom Navigation */
+.bottom-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border-top: 1px solid #E5E5E5;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0 20px;
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.nav-item:active {
+  opacity: 0.6;
+}
+
+.nav-icon {
+  font-size: 24px;
+  color: #6B6B6B;
+  transition: color 0.2s;
+}
+
+.nav-item.active .nav-icon {
+  color: #007AFF;
+}
+
+.nav-label {
+  font-size: 10px;
+  color: #6B6B6B;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-item.active .nav-label {
+  color: #007AFF;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .dashboard-content {
+    padding: 20px 16px;
+  }
+
+  .dashboard-title {
+    font-size: 28px;
+  }
+
+  .streak-value,
+  .goal-completion-value {
+    font-size: 28px;
+  }
+
+  .streak-icon,
+  .goal-completion-icon {
+    font-size: 40px;
+  }
+}
+
+/* Loading & Error States */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  color: #6B6B6B;
+}
+
+.error-container {
+  padding: 20px;
+  text-align: center;
+  color: #FF3B30;
+}
+
+.error-retry-button {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: #007AFF;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}

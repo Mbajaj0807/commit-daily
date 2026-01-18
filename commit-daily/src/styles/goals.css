@@ -1,0 +1,251 @@
+/* Goals Manager Container */
+.goals-manager {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+.goals-header {
+  margin-bottom: 24px;
+}
+
+.goals-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.goals-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Goal Item */
+.goal-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.goal-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.goal-icon {
+  font-size: 24px;
+}
+
+.goal-details h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.goal-meta {
+  font-size: 12px;
+  color: #666;
+}
+
+.goal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.goal-item.inactive {
+  opacity: 0.6;
+}
+
+.goal-item.inactive .goal-details h3 {
+  text-decoration: line-through;
+}
+
+/* Add Goal Form */
+.add-goal-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.add-goal-form h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #007AFF;
+}
+
+.error-text {
+  display: block;
+  color: #ff3b30;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* Icon Grid */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.icon-button {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:hover {
+  border-color: #007AFF;
+  transform: scale(1.05);
+}
+
+.icon-button.selected {
+  border-color: #007AFF;
+  background: #e3f2fd;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.form-actions button {
+  flex: 1;
+}
+
+/* Add Goal Button */
+.add-goal-button {
+  width: 100%;
+  padding: 16px;
+  background: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 16px;
+}
+
+.add-goal-button:hover {
+  background: #0051D5;
+}
+
+.add-goal-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Empty State */
+.goals-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.goals-empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.goals-empty h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.goals-empty p {
+  font-size: 14px;
+  color: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-goal-form {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .goals-manager {
+    padding: 16px;
+  }
+  
+  .icon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+  }
+  
+  .icon-button {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
