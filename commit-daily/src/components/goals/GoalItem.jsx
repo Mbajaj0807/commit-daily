@@ -18,7 +18,6 @@ const GoalItem = ({ goal, onToggle, onEdit, onRemove }) => {
       await goalsService.removeGoal(goalId);
     } catch (err) {
       console.error('Error deleting goal:', err);
-
     }
   };
 

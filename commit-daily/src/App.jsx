@@ -8,6 +8,7 @@ import DashboardPage from './pages/DashboardPage';
 import CommitmentPage from './pages/CommitmentPage';
 import GoalsPage from './pages/GoalsPage';
 import MoneyPage from './pages/MoneyPage';
+import InsightsPage from './pages/InsightPage';
 import authService from './services/auth.service';
 import './styles/auth.css';
 
@@ -84,7 +85,7 @@ function App() {
           path="/insights"
           element={
             <ProtectedRoute>
-              <MoneyPage />
+              <InsightsPage />
             </ProtectedRoute>
           }
         />

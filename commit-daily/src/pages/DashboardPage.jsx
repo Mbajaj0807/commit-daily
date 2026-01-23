@@ -189,7 +189,7 @@ const DashboardPage = () => {
         {/* AI Quote Section */}
         {quote && (
           <div className="quote-section">
-            <div className="quote-icon">💡</div>
+            {/* <div className="quote-icon">💡</div> */}
             {quoteLoading ? (
               <div className="quote-loading">Loading your daily motivation...</div>
             ) : (

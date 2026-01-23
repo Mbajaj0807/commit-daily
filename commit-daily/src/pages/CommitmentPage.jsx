@@ -8,7 +8,7 @@ import GoalChecklist from '../components/commitment/GoalChecklist';
 import goalsService from '../services/goals.service';
 import entriesService from '../services/entries.service';
 import quotesService from '../services/quotes.service';
-import { Plus, Check, X } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import '../styles/commitment.css';
 
 const CommitmentPage = () => {
