@@ -13,6 +13,7 @@ import authRoutes from './routes/auth.js';
 import goalRoutes from './routes/goals.js';
 import entryRoutes from './routes/entries.js';
 import analyticsRoutes from './routes/analytics.js';
+import financeRoutes from './routes/finance.js';
 import testAIRoutes from './routes/testAI.js';
 import quoteRoutes from "./routes/quotes.js";
 
@@ -43,6 +44,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/goals', goalRoutes);
 app.use('/api/entries', entryRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/finance', financeRoutes);
 app.use("/api", testAIRoutes);
 app.use("/api/quotes", quoteRoutes);
 

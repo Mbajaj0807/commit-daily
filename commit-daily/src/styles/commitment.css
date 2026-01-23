@@ -3,7 +3,7 @@
 .commitment-page {
   min-height: 100vh;
   background: #FFFFFF;
-  padding-bottom: 100px;
+  padding-bottom: 40px;
 }
 
 /* Header */
@@ -14,6 +14,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .back-button {
@@ -26,10 +29,16 @@
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s;
+  border-radius: 8px;
 }
 
 .back-button:hover {
   opacity: 0.7;
+  background: #F0F0F0;
+}
+
+.back-button:active {
+  opacity: 0.5;
 }
 
 .commitment-header-title {
@@ -42,7 +51,7 @@
 /* Content */
 .commitment-content {
   padding: 24px 20px;
-  max-width: 480px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -50,50 +59,59 @@
 .commitment-date {
   text-align: center;
   padding: 16px 0;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .date-label {
   font-size: 13px;
   color: #6B6B6B;
   margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .date-value {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 600;
   color: #000000;
 }
 
 /* Rating Section */
 .rating-section {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
+  background: #FAFAFA;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #F0F0F0;
 }
 
 .section-title {
   font-size: 17px;
   font-weight: 600;
   color: #000000;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .rating-stars-container {
   display: flex;
   justify-content: center;
   gap: 16px;
-  padding: 20px 0;
+  padding: 12px 0;
 }
 
 .star-button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
-  transition: transform 0.2s;
+  padding: 8px;
+  transition: all 0.2s;
+  border-radius: 8px;
 }
 
 .star-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  background: rgba(255, 215, 0, 0.1);
 }
 
 .star-button:active {
@@ -101,20 +119,21 @@
 }
 
 .star-icon {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   color: #E5E5E5;
-  transition: color 0.2s;
+  transition: all 0.2s;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 .star-icon.filled {
   color: #FFD700;
-  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+  filter: drop-shadow(0 2px 6px rgba(255, 215, 0, 0.4));
 }
 
 /* Goals Checklist */
 .goals-checklist-section {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .goals-checklist {
@@ -129,13 +148,14 @@
   gap: 12px;
   padding: 16px;
   background: #FFFFFF;
-  border: 1px solid #E5E5E5;
+  border: 1.5px solid #E5E5E5;
   border-radius: 12px;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
 }
 
 .goal-item:hover {
   border-color: #C7C7C7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .goal-checkbox-wrapper {
@@ -157,6 +177,10 @@
   background: #FFFFFF;
 }
 
+.goal-checkbox:hover {
+  border-color: #007AFF;
+}
+
 .goal-checkbox.checked {
   background: #007AFF;
   border-color: #007AFF;
@@ -176,11 +200,11 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .goal-icon {
-  font-size: 20px;
+  font-size: 24px;
   flex-shrink: 0;
 }
 
@@ -191,7 +215,7 @@
 
 .goal-name {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: #000000;
   margin-bottom: 2px;
 }
@@ -207,30 +231,39 @@
   align-items: center;
   gap: 8px;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .goal-numeric-input {
   width: 80px;
-  padding: 8px 12px;
-  border: 1px solid #E5E5E5;
+  padding: 10px 12px;
+  border: 2px solid #E5E5E5;
   border-radius: 8px;
   font-size: 15px;
+  font-weight: 600;
   text-align: center;
-  background: #F9F9F9;
+  background: #FAFAFA;
   color: #000000;
   outline: none;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu;
 }
 
 .goal-numeric-input:focus {
   border-color: #007AFF;
   background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.goal-numeric-input:hover {
+  border-color: #C7C7C7;
 }
 
 .goal-unit {
   font-size: 13px;
   color: #6B6B6B;
-  min-width: 40px;
+  font-weight: 500;
+  min-width: 50px;
 }
 
 /* Notes Section */
@@ -240,9 +273,9 @@
 
 .notes-label {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: #000000;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   display: block;
 }
 
@@ -254,18 +287,18 @@
 
 .notes-textarea {
   width: 100%;
-  min-height: 120px;
+  min-height: 140px;
   padding: 16px;
-  border: 1px solid #E5E5E5;
+  border: 2px solid #E5E5E5;
   border-radius: 12px;
   font-size: 15px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu;
   color: #000000;
-  background: #FFFFFF;
+  background: #FAFAFA;
   resize: vertical;
   outline: none;
-  line-height: 1.5;
-  transition: border-color 0.2s;
+  line-height: 1.6;
+  transition: all 0.2s;
 }
 
 .notes-textarea::placeholder {
@@ -274,6 +307,12 @@
 
 .notes-textarea:focus {
   border-color: #007AFF;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.notes-textarea:hover {
+  border-color: #C7C7C7;
 }
 
 /* Save Button */
@@ -287,21 +326,28 @@
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
   margin-bottom: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .save-button:hover {
-  opacity: 0.9;
+  background: #0056D6;
+  box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+  transform: translateY(-1px);
 }
 
 .save-button:active {
-  opacity: 0.8;
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
 }
 
 .save-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Success Message */
@@ -312,19 +358,22 @@
   transform: translateX(-50%);
   background: #34C759;
   color: #FFFFFF;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
   font-size: 15px;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
-  z-index: 1000;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(52, 199, 89, 0.4);
+  z-index: 2000;
   animation: slideDown 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
+    transform: translateX(-50%) translateY(-30px);
   }
   to {
     opacity: 1;
@@ -335,31 +384,60 @@
 /* Empty State */
 .empty-goals-state {
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
   color: #6B6B6B;
+  background: #FAFAFA;
+  border-radius: 16px;
+  border: 2px dashed #E5E5E5;
 }
 
 .empty-goals-icon {
-  font-size: 48px;
+  font-size: 64px;
   margin-bottom: 16px;
+  opacity: 0.8;
 }
 
 .empty-goals-text {
   font-size: 15px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
 
 .empty-goals-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 12px 24px;
   background: #007AFF;
   color: #FFFFFF;
-  border-radius: 8px;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   cursor: pointer;
   border: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.empty-goals-button:hover {
+  background: #0056D6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+}
+
+.empty-goals-button:active {
+  transform: translateY(0);
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  color: #6B6B6B;
+  font-size: 15px;
 }
 
 /* Responsive */
@@ -373,11 +451,70 @@
   }
 
   .star-icon {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
   }
 
   .goal-numeric-input {
     width: 70px;
+    font-size: 14px;
   }
+
+  .notes-textarea {
+    min-height: 120px;
+  }
+
+  .date-value {
+    font-size: 18px;
+  }
+
+  .rating-section,
+  .goals-checklist-section {
+    margin-bottom: 32px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .star-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .rating-stars-container {
+    gap: 8px;
+  }
+
+  .goal-numeric-input {
+    width: 65px;
+    padding: 8px 10px;
+  }
+}
+
+/* Animations for goal items */
+.goal-item {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus visible styles for accessibility */
+.back-button:focus-visible,
+.star-button:focus-visible,
+.save-button:focus-visible {
+  outline: 3px solid #007AFF;
+  outline-offset: 2px;
+}
+
+.goal-checkbox:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
 }

@@ -7,6 +7,8 @@ import RatingStars from '../components/commitment/RatingStars';
 import GoalChecklist from '../components/commitment/GoalChecklist';
 import goalsService from '../services/goals.service';
 import entriesService from '../services/entries.service';
+import quotesService from '../services/quotes.service';
+import { Plus, Check, X } from 'lucide-react';
 import '../styles/commitment.css';
 
 const CommitmentPage = () => {
@@ -66,7 +68,9 @@ const CommitmentPage = () => {
   const handleRatingChange = (rating) => {
     setFormData(prev => ({ ...prev, rating }));
   };
-
+const handleAddGoal = () => {
+    navigate('/goals');
+  };
   const handleGoalStatusChange = (goalId, value) => {
     setFormData(prev => ({
       ...prev,
@@ -120,7 +124,16 @@ const CommitmentPage = () => {
         notes: formData.notes,
       };
 
+      // Step 1: Save daily entry
       await entriesService.addDayUpdate(dataToSave);
+      
+      // Step 2: Update/generate daily quote
+      try {
+        await quotesService.updateQuote();
+      } catch (quoteError) {
+        console.error('Failed to update quote:', quoteError);
+        // Don't fail the whole save if quote update fails
+      }
       
       // Show success message
       setShowSuccess(true);
@@ -162,12 +175,25 @@ const CommitmentPage = () => {
         </div>
       )}
 
+
+
       {/* Header */}
       <div className="commitment-header">
         <button className="back-button" onClick={() => navigate('/dashboard')}>
           <ChevronLeft size={24} />
         </button>
         <h1 className="commitment-header-title">Today's Commitment</h1>
+
+        <div className="dashboard-header-actions">
+          {/* Update Today Button */}
+          <button
+          className="update-today-header-button"
+          onClick={handleAddGoal}
+          disabled={loading}
+          >
+          <Plus size={20} color="#FFFFFF" strokeWidth={3} />
+            </button>
+        </div>
       </div>
 
       {/* Content */}

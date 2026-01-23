@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import CommitmentPage from './pages/CommitmentPage';
 import GoalsPage from './pages/GoalsPage';
+import MoneyPage from './pages/MoneyPage';
 import authService from './services/auth.service';
 import './styles/auth.css';
 
@@ -75,6 +76,24 @@ function App() {
           element={
             <ProtectedRoute>
               <GoalsPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Insights Route - Now fully implemented */}
+        <Route
+          path="/insights"
+          element={
+            <ProtectedRoute>
+              <MoneyPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Money Route - Now fully implemented */}
+        <Route
+          path="/money"
+          element={
+            <ProtectedRoute>
+              <MoneyPage />
             </ProtectedRoute>
           }
         />

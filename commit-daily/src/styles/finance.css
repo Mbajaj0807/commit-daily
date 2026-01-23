@@ -1,0 +1,317 @@
+/* ===============================
+   Finance Page
+================================ */
+
+.money-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+  padding-bottom: 80px; /* space for bottom nav */
+}
+
+/* ===============================
+   Header
+================================ */
+
+.money-header {
+  padding: 12px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F0F0F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.money-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.money-add-button {
+  background: #007AFF;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.money-add-button:hover {
+  opacity: 0.9;
+}
+
+.money-add-button:active {
+  opacity: 0.8;
+}
+
+/* ===============================
+   Date Header
+================================ */
+
+.money-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.date-nav-button {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: #6B6B6B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.money-date-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.money-date-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.calendar-button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #007AFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===============================
+   Content Wrapper
+================================ */
+
+.money-content {
+  padding: 24px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ===============================
+   Expense List
+================================ */
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===============================
+   Expense Item
+================================ */
+
+.expense-item {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.expense-item-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.expense-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.expense-item-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2px;
+}
+
+.expense-item-category {
+  font-size: 13px;
+  color: #6B6B6B;
+}
+
+.expense-item-amount {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+  flex-shrink: 0;
+}
+
+/* ===============================
+   Empty State
+================================ */
+
+.empty-expenses {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-expenses-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.empty-expenses-text {
+  font-size: 15px;
+  color: #6B6B6B;
+}
+
+/* ===============================
+   Loading / Error
+================================ */
+
+.loading {
+  text-align: center;
+  font-size: 14px;
+  color: #6B6B6B;
+}
+
+.error-message {
+  background: #FFEBEE;
+  color: #FF3B30;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* ===============================
+   Responsive
+================================ */
+
+@media (max-width: 480px) {
+  .money-content {
+    padding: 20px 16px;
+  }
+}
+
+/* ============================= */
+/* Add Expense Form */
+/* ============================= */
+
+.expense-form-card {
+  border: 1px solid #E5E5E5;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #FFFFFF;
+}
+
+.expense-form-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.remove-expense-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #FF3B30;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.remove-expense-button:hover {
+  opacity: 0.7;
+}
+
+/* Expense label consistency */
+.form-field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* ============================= */
+/* Add Another Expense Button */
+/* ============================= */
+
+.add-another-expense-button {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0 20px;
+  background: #F2F2F7;
+  color: #007AFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.add-another-expense-button:hover {
+  opacity: 0.9;
+  background: #EDEDF2;
+}
+
+.add-another-expense-button:active {
+  opacity: 0.8;
+}
+
+/* ============================= */
+/* Small Mobile Tweaks */
+/* ============================= */
+
+@media (max-width: 480px) {
+  .expense-form-card {
+    padding: 14px;
+  }
+}
+
+/* ============================= */
+/* Expense Emoji Picker Fix */
+/* ============================= */
+
+.expense-emoji-box {
+  width: 56px;
+  height: 56px;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  background: #FFFFFF;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.expense-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+

@@ -13,6 +13,16 @@ const goalsService = {
     }
   },
 
+  // Alias for getGoals (in case it's called elsewhere)
+  getAllGoals: async () => {
+    try {
+      const response = await api.get('/goals');
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to fetch goals' };
+    }
+  },
+
   // Add new goal
   addGoal: async (goalData) => {
     try {

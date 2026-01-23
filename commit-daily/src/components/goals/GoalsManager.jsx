@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import GoalItem from './GoalItem';
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import AddGoalForm from './AddGoalForm';
 // import Button from '../common/Button';
 import  goalsService  from '../../services/goals.service';
 import '../../styles/goals.css';
 
 const GoalsManager = () => {
+  const navigate = useNavigate();
   const [goals, setGoals] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -92,8 +95,11 @@ const GoalsManager = () => {
   return (
     <div className="goals-manager">
       <div className="goals-header">
-        <h1>Your Rules</h1>
-        <p>These are the standards you live by.</p>
+        
+        <button className="back-button" onClick={() => navigate('/dashboard')}>
+          <ChevronLeft size={24} />
+          <h1>Your Rules</h1>
+        </button>       
       </div>
 
       {error && (
