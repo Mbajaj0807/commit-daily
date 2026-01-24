@@ -1,13 +1,13 @@
 // services/financeAggregates.js
 
-export function computeMoneyAggregates(expenses) {
+export function computeMoneyAggregates(expenses, options = {}) {
   const dailyMap = {};
   const categoryMap = {};
   let totalSpent = 0;
   let maxSingleExpense = 0;
   let noteCount = 0;
 
-  // NEW
+  // Silent spends
   let silentSpendCount = 0;
   let silentSpendTotal = 0;
 
@@ -33,8 +33,29 @@ export function computeMoneyAggregates(expenses) {
   const days = Object.keys(dailyMap);
   const dailyValues = Object.values(dailyMap);
 
-  const avgDailySpend =
-    days.length > 0 ? totalSpent / days.length : 0;
+  // FIXED: Calculate average based on ALL days in cycle, not just spending days
+  let avgDailySpend = 0;
+  let actualDaysInCycle = days.length;
+
+  if (options.monthlyBudget && options.pocketMoneyDay) {
+    const now = new Date();
+    let cycleStart = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      options.pocketMoneyDay
+    );
+    if (cycleStart > now) {
+      cycleStart.setMonth(cycleStart.getMonth() - 1);
+    }
+    actualDaysInCycle = Math.max(
+      Math.floor((now - cycleStart) / (1000 * 60 * 60 * 24)) + 1,
+      1
+    );
+    avgDailySpend = actualDaysInCycle > 0 ? totalSpent / actualDaysInCycle : 0;
+  } else {
+    // Fallback to old logic if budget options not provided
+    avgDailySpend = days.length > 0 ? totalSpent / days.length : 0;
+  }
 
   const maxDailySpend = Math.max(...dailyValues, 0);
   const minDailySpend =
@@ -91,6 +112,60 @@ export function computeMoneyAggregates(expenses) {
     projectedAmount: Math.round(avgDailySpend * 30),
   };
 
+  /* ---------------- Budget Insights ---------------- */
+
+  let budgetInsights = null;
+
+  if (
+    options.monthlyBudget &&
+    options.pocketMoneyDay
+  ) {
+    const now = new Date();
+
+    // Compute current cycle start date
+    let cycleStart = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      options.pocketMoneyDay
+    );
+
+    // If pocket money day hasn't arrived yet this month
+    if (cycleStart > now) {
+      cycleStart.setMonth(cycleStart.getMonth() - 1);
+    }
+
+    const daysPassed = Math.max(
+      Math.floor((now - cycleStart) / (1000 * 60 * 60 * 24)) + 1,
+      1
+    );
+
+    const cycleLength = 30; // logical cycle
+    const remainingDays = Math.max(cycleLength - daysPassed, 0);
+
+    const remainingBudget =
+      options.monthlyBudget - totalSpent;
+
+    const budgetUsedPercent = options.monthlyBudget
+      ? Math.round((totalSpent / options.monthlyBudget) * 100)
+      : 0;
+
+    const safeDailySpend =
+      remainingDays > 0
+        ? Math.round(remainingBudget / remainingDays)
+        : 0;
+
+    budgetInsights = {
+      monthlyBudget: options.monthlyBudget,
+      totalSpent,
+      remainingBudget,
+      budgetUsedPercent,
+      daysPassed,
+      remainingDays,
+      safeDailySpend,
+      isOverBudget: remainingBudget < 0,
+    };
+  }
+
   return {
     totalSpent,
     avgDailySpend,
@@ -106,12 +181,19 @@ export function computeMoneyAggregates(expenses) {
     last7DaysTrend,
     topCategory,
 
-    // NEW
+    // Silent spending
     silentSpends: {
       count: silentSpendCount,
       totalAmount: silentSpendTotal,
     },
+
+    // Projection
     projectionSpend,
+
+    // Heatmap
     spendHeatmap,
+
+    // Budget insights
+    budgetInsights,
   };
 }

@@ -17,6 +17,7 @@ import financeRoutes from './routes/finance.js';
 import testAIRoutes from './routes/testAI.js';
 import quoteRoutes from "./routes/quotes.js";
 import insightsRoutes from "./routes/insights.js";
+import profileRoutes from "./routes/profile.routes.js"
 
 
 const app = express();
@@ -41,13 +42,15 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/goals', goalRoutes);
-app.use('/api/entries', entryRoutes);
-app.use('/api/analytics', analyticsRoutes);
-app.use('/api/finance', financeRoutes);
-app.use("/api/insights",insightsRoutes);
-app.use("/api/quotes", quoteRoutes);
+app.use('/auth', authRoutes);
+app.use('/goals', goalRoutes);
+app.use('/entries', entryRoutes);
+app.use('/analytics', analyticsRoutes);
+app.use('/finance', financeRoutes);
+app.use("/insights",insightsRoutes);
+app.use("/quotes", quoteRoutes);
+app.use("/profile", profileRoutes);
+
 
 // Health check
 app.get('/health', (req, res) => {

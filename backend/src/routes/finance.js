@@ -4,6 +4,22 @@ import Expense from "../models/Expense.js";
 
 const router = express.Router();
 
+const getTodayIST = () => {
+  const now = new Date();
+  
+  // Convert to IST (Asia/Kolkata)
+  const istDate = new Date(
+    now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+  );
+  
+  // Format as YYYY-MM-DD
+  const year = istDate.getFullYear();
+  const month = String(istDate.getMonth() + 1).padStart(2, '0');
+  const day = String(istDate.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+};
+
 /**
  * @route   POST /api/finance/addexpense
  * @desc    Add a new expense
@@ -16,7 +32,7 @@ router.post("/addexpense", protect, async (req, res) => {
     if (!date || amount === undefined) {
       return res.status(400).json({
         success: false,
-        message: "Name Date and amount are required"
+        message: "Date and amount are required"
       });
     }
 
@@ -70,11 +86,9 @@ router.get("/expenses", protect, async (req, res) => {
       date: { $gte: start, $lte: end }
     }).sort({ date: -1 });
 
-    const sum = expenses.reduce((acc, curr) => acc + curr.amount, 0);
-
     res.json({
       success: true,
-      data: expenses,sum
+      data: expenses
     });
   } catch (error) {
     res.status(500).json({
@@ -91,7 +105,7 @@ router.get("/expenses", protect, async (req, res) => {
  */
 router.get("/today", protect, async (req, res) => {
   try {
-    const today = new Date().toISOString().split("T")[0];
+    const today = getTodayIST();
 
     const result = await Expense.aggregate([
       {

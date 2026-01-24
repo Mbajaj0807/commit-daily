@@ -15,6 +15,19 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     select: false
   },
+  // models/User.js
+
+pocketMoneyDay: {
+  type: Number, // YYYY-MM-DD (IST)
+  min: 1,
+  max: 31,
+},
+
+monthlyBudget: {
+  type: Number,
+  default: null,
+},
+
   createdAt: {
     type: Date,
     default: Date.now

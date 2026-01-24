@@ -25,6 +25,23 @@ const calculateSuggestedRating = (goalStatus, goals) => {
   return 1;
 };
 
+const getTodayIST = () => {
+  const now = new Date();
+  
+  // Convert to IST (Asia/Kolkata)
+  const istDate = new Date(
+    now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+  );
+  
+  // Format as YYYY-MM-DD
+  const year = istDate.getFullYear();
+  const month = String(istDate.getMonth() + 1).padStart(2, '0');
+  const day = String(istDate.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+};
+
+
 // Update streaks
 const updateStreaks = async (userId, entry, goals) => {
   const yesterday = new Date(entry.date);
@@ -165,7 +182,7 @@ router.get('/', protect, async (req, res) => {
 // @access  Private
 router.get('/today', protect, async (req, res) => {
   try {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getTodayIST();
     let entry = await DailyEntry.findOne({ userId: req.user._id, date: today });
 
     if (!entry) {

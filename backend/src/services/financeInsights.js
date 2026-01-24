@@ -11,7 +11,7 @@ export function generateMoneyInsights(agg) {
     type: "stat",
     title: "Total spent",
     value: `₹${agg.totalSpent}`,
-    context: "Last 30 days",
+    context: "Current cycle",
     confidence: "high",
   });
 
@@ -48,9 +48,67 @@ export function generateMoneyInsights(agg) {
     }
   }
 
-  /* ---------------- NEW INSIGHTS ---------------- */
+  /* ---------------- Budget Insights (Priority) ---------------- */
 
-  // 1️⃣ Projection Insight
+  if (agg.budgetInsights) {
+    const b = agg.budgetInsights;
+
+    insights.push({
+      id: "budget_usage",
+      domain: "money",
+      type: "stat",
+      title: "Budget used",
+      value: `${b.budgetUsedPercent}%`,
+      context: `₹${b.totalSpent} of ₹${b.monthlyBudget}`,
+      confidence: "high",
+    });
+
+    insights.push({
+      id: "remaining_budget",
+      domain: "money",
+      type: "stat",
+      title: "Remaining budget",
+      value: `₹${b.remainingBudget}`,
+      context: `${b.remainingDays} days left`,
+      confidence: "high",
+    });
+
+    insights.push({
+      id: "safe_daily_spend",
+      domain: "money",
+      type: "reflection",
+      title: "Safe daily spend",
+      value: `₹${b.safeDailySpend}`,
+      context: "To stay within budget",
+      confidence: "medium",
+    });
+
+    if (b.isOverBudget) {
+      insights.push({
+        id: "over_budget_alert",
+        domain: "money",
+        type: "alert",
+        title: "You are over budget",
+        context: `Exceeded budget by ₹${Math.abs(b.remainingBudget)}`,
+        severity: "negative",
+        confidence: "high",
+      });
+    } else if (b.budgetUsedPercent >= 80 && b.budgetUsedPercent < 100) {
+      insights.push({
+        id: "budget_warning",
+        domain: "money",
+        type: "alert",
+        title: "Approaching budget limit",
+        context: `${b.budgetUsedPercent}% of budget used with ${b.remainingDays} days remaining`,
+        severity: "warning",
+        confidence: "high",
+      });
+    }
+  }
+
+  /* ---------------- Existing Advanced Insights ---------------- */
+
+  // Projection
   insights.push({
     id: "projection_spend",
     domain: "money",
@@ -61,7 +119,7 @@ export function generateMoneyInsights(agg) {
     confidence: "medium",
   });
 
-  // 2️⃣ Silent Spends
+  // Silent spending
   if (agg.silentSpends.count > 0) {
     insights.push({
       id: "silent_spends",
@@ -74,7 +132,7 @@ export function generateMoneyInsights(agg) {
     });
   }
 
-  // 3️⃣ Spend Heatmap (chart-ready insight)
+  // Heatmap (visual)
   insights.push({
     id: "spend_heatmap",
     domain: "money",
@@ -84,7 +142,7 @@ export function generateMoneyInsights(agg) {
     confidence: "high",
   });
 
-  // 4️⃣ Category Breakdown (pie-ready)
+  // Category pie
   insights.push({
     id: "category_breakdown",
     domain: "money",
@@ -94,7 +152,7 @@ export function generateMoneyInsights(agg) {
     confidence: "high",
   });
 
-  // 5️⃣ 7-day Trend (bar-ready)
+  // 7-day bar
   insights.push({
     id: "last_7_days_trend",
     domain: "money",
