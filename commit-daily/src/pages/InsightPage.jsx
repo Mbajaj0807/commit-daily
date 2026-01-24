@@ -1,62 +1,176 @@
 // src/pages/InsightsPage.jsx
 
-import React, { useState } from "react";
-import { ChevronLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import BottomNavigation from "../components/layout/BottomNavigation";
 import "../styles/insights.css";
 
 import {
   InsightStatCard,
   InsightMessageCard,
-  SpendHeatmap,
   CategoryDonut,
   WeeklySpendBar,
+  BudgetRing,
+  BudgetAlert,
 } from "../components/moneyinsights/code";
 
+import {
+  CompletionRing,
+  PerformanceAlert,
+  GoalStatsGrid,
+  HabitHighlights,
+  // CompletionBarChart,
+  GoalPerformanceList,
+  IndividualGoalProgress,
+} from "../components/goalInsights/goalInsightsComponent";
+
+import insightsService from "../services/insights.service";
+
 const InsightsPage = () => {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("all");
-  
-  const moneyInsights = {
-    totalSpent: "₹4695",
-    avgDaily: "₹2348",
-    projection: "₹70425",
-    topCategory: {
-      name: "Food",
-      amount: "₹2695 (57%)",
-    },
-    silentSpends: "3 expenses without notes",
-    heatmap: [
-      { date: "2026-01-22", total: 900, intensity: 1 },
-      { date: "2026-01-23", total: 3795, intensity: 3 },
-    ],
-    categories: [
-      { category: "Food", amount: 2695 },
-      { category: "Shopping", amount: 2000 },
-    ],
-    last7Days: [
-      { date: "Mon", amount: 100 },
-      { date: "Tue", amount: 200 },
-      { date: "Wed", amount: 500 },
-      { date: "Thu", amount: 700 },
-      { date: "Fri", amount: 900 },
-      { date: "Sat", amount: 3795 },
-      { date: "Sun", amount: 0 },
-    ],
+  const [activeTab, setActiveTab] = useState("money");
+  const [loading, setLoading] = useState(true);
+  const [moneyInsights, setMoneyInsights] = useState(null);
+  const [goalsInsights, setGoalsInsights] = useState(null);
+
+  /* ---------------- Fetch Insights ---------------- */
+  useEffect(() => {
+    if (activeTab === "money") {
+      fetchMoneyInsights();
+    } else if (activeTab === "goals") {
+      fetchGoalsInsights();
+    }
+  }, [activeTab]);
+
+  const fetchMoneyInsights = async () => {
+    try {
+      setLoading(true);
+      const res = await insightsService.getMoneyInsights();
+
+      const insightsArray = res.insights;
+      const charts = res.charts;
+      const meta = res.meta;
+
+      // Helper to find insight by id
+      const getInsight = (id) =>
+        insightsArray.find((i) => i.id === id);
+
+      setMoneyInsights({
+        totalSpent: getInsight("total_spent")?.value,
+        avgDaily: getInsight("avg_daily_spend")?.value,
+        projection: getInsight("projection_spend")?.value,
+        topCategory: {
+          name: getInsight("top_category")?.value,
+          amount: getInsight("top_category")?.context,
+        },
+        silentSpends: getInsight("silent_spends")?.context,
+        categories: charts.categoryBreakdown || [],
+        last7Days: charts.last7DaysTrend || [],
+        
+        // Budget insights
+        budgetInsights: meta.budgetInsights || null,
+        budgetUsage: getInsight("budget_usage"),
+        remainingBudget: getInsight("remaining_budget"),
+        safeDailySpend: getInsight("safe_daily_spend"),
+        budgetAlert: getInsight("over_budget_alert") || getInsight("budget_warning"),
+      });
+    } catch (err) {
+      console.error("Failed to load money insights", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchGoalsInsights = async () => {
+    try {
+      setLoading(true);
+      const res = await insightsService.getGoalsInsights();
+      console.log(res);
+
+      setGoalsInsights(res);
+    } catch (err) {
+      console.error("Failed to load goals insights", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ---------------- Render Goals Tab ---------------- */
+  const renderGoalsTab = () => {
+    if (loading || !goalsInsights) {
+      return <div className="loading">Loading insights...</div>;
+    }
+
+    const { insights, charts, meta, goalWiseStats } = goalsInsights;
+
+    // Get different types of insights
+    const stats = insights.filter(i => i.type === "stat");
+    const alerts = insights.filter(i => i.type === "alert" || i.type === "reflection");
+    const best = insights.find(i => i.id === "strongest_goal");
+    const worst = insights.find(i => i.id === "weakest_goal");
+
+    return (
+      <>
+        {/* Completion Ring */}
+        <CompletionRing
+          completionRate={meta.completionRate}
+          totalGoals={meta.totalGoals}
+          activeGoals={meta.activeGoals}
+        />
+
+        {/* Performance Alerts */}
+        {alerts.slice(0, 2).map((alert) => (
+          <PerformanceAlert key={alert.id} insight={alert} />
+        ))}
+
+        {/* Stats Grid */}
+        {stats.length > 0 && (
+          <GoalStatsGrid stats={stats.slice(0, 4)} />
+        )}
+
+        {/* Best & Worst Habits */}
+        {(best || worst) && (
+          <HabitHighlights best={best} worst={worst} />
+        )}
+
+        {/* Last 7 Days Completion Chart
+        {charts?.last7DaysCompletion && (
+          <CompletionBarChart
+            data={charts.last7DaysCompletion}
+            title="Last 7 Days Completion %"
+          />
+        )} */}
+
+        {/* Daily Goals Completed Chart
+        {charts?.dailyGoalsCompleted && (
+          <CompletionBarChart
+            data={charts.dailyGoalsCompleted}
+            title="Daily Goals Completed"
+          />
+        )} */}
+
+        {/* Goal Performance List */}
+        {goalWiseStats && goalWiseStats.length > 0 && (
+          <GoalPerformanceList goals={goalWiseStats} />
+        )}
+
+        {/* Individual Goal Progress */}
+        {charts?.last7DaysGoalProgress && charts.last7DaysGoalProgress.length > 0 && (
+          <>
+            {charts.last7DaysGoalProgress.map((goalProgress) => (
+              <IndividualGoalProgress
+                key={goalProgress.goalId}
+                goalProgress={goalProgress}
+              />
+            ))}
+          </>
+        )}
+      </>
+    );
   };
 
   return (
     <div className="insights-page">
       {/* Header */}
       <div className="insights-header">
-        <button
-          className="insights-back-button"
-          onClick={() => navigate(-1)}
-        >
-          <ChevronLeft size={22} />
-        </button>
-
         <div>
           <h1 className="insights-title">Insights</h1>
           <p className="insights-subtitle">
@@ -65,25 +179,18 @@ const InsightsPage = () => {
         </div>
       </div>
 
-      {/* Filter */}
+      {/* Tabs */}
       <div className="insights-tabs">
         <button
-          className={`insights-tab ${activeTab === 'all' ? 'active' : ''}`}
-          onClick={() => setActiveTab('all')}
-        >
-          All
-        </button>
-
-        <button
-          className={`insights-tab ${activeTab === 'goals' ? 'active' : ''}`}
-          onClick={() => setActiveTab('goals')}
+          className={`insights-tab ${activeTab === "goals" ? "active" : ""}`}
+          onClick={() => setActiveTab("goals")}
         >
           Goals
         </button>
 
         <button
-          className={`insights-tab ${activeTab === 'money' ? 'active' : ''}`}
-          onClick={() => setActiveTab('money')}
+          className={`insights-tab ${activeTab === "money" ? "active" : ""}`}
+          onClick={() => setActiveTab("money")}
         >
           Money
         </button>
@@ -91,90 +198,80 @@ const InsightsPage = () => {
 
       {/* Content */}
       <div className="insights-content">
-        {activeTab === "all" && (
-          <>
-            <InsightCard
-              title="Consistency"
-              description="Your discipline trend over time"
-              value="Stable"
-            />
-            <InsightCard
-              title="Goals Focus"
-              description="Most engaged category"
-              value="Fitness"
-            />
-            <InsightCard
-              title="Spending Awareness"
-              description="Avg daily spend"
-              value="₹240"
-            />
-          </>
-        )}
-
-        {activeTab === "goals" && (
-          <>
-            <InsightCard
-              title="Completion Rate"
-              description="Last 30 days"
-              value="78%"
-            />
-            <InsightCard
-              title="Most Skipped Goal"
-              description="Needs attention"
-              value="Reading"
-            />
-          </>
-        )}
+        {activeTab === "goals" && renderGoalsTab()}
 
         {activeTab === "money" && (
           <>
-            <InsightStatCard
-              title="Total spent"
-              value={moneyInsights.totalSpent}
-              context="Last 30 days"
-              icon="₹"
-            />
+            {loading || !moneyInsights ? (
+              <div className="loading">Loading insights...</div>
+            ) : (
+              <>
+                {/* Budget Ring - Show first if budget is set */}
+                {moneyInsights.budgetInsights && (
+                  <BudgetRing data={moneyInsights.budgetInsights} />
+                )}
 
-            <InsightStatCard
-              title="Average daily spend"
-              value={moneyInsights.avgDaily}
-              context="Based on recent habits"
-              icon="📊"
-            />
+                {/* Budget Alert */}
+                {moneyInsights.budgetAlert && (
+                  <BudgetAlert insight={moneyInsights.budgetAlert} />
+                )}
 
-            <InsightStatCard
-              title="Projected monthly spend"
-              value={moneyInsights.projection}
-              context="If current trend continues"
-              icon="📈"
-            />
+                {/* Budget Stats Grid */}
+                {moneyInsights.budgetInsights && (
+                  <div className="mi-stats-grid">
+                    <InsightStatCard
+                      title="Remaining Budget"
+                      value={moneyInsights.remainingBudget?.value}
+                      context={moneyInsights.remainingBudget?.context}
+                      icon="💰"
+                    />
+                    
+                    <InsightStatCard
+                      title="Safe Daily Spend"
+                      value={moneyInsights.safeDailySpend?.value}
+                      context={moneyInsights.safeDailySpend?.context}
+                      icon="📅"
+                    />
+                  </div>
+                )}
 
-            <InsightMessageCard
-              title="Top spending category"
-              highlight={moneyInsights.topCategory.name}
-              description={moneyInsights.topCategory.amount}
-            />
+                <InsightStatCard
+                  title="Total spent"
+                  value={moneyInsights.totalSpent}
+                  context="Current cycle"
+                  icon="₹"
+                />
 
-            <CategoryDonut data={moneyInsights.categories} />
-            
-            <WeeklySpendBar data={moneyInsights.last7Days} />
+                <InsightStatCard
+                  title="Average daily spend"
+                  value={moneyInsights.avgDaily}
+                  context="Based on all cycle days"
+                  icon="📊"
+                />
+
+                <InsightStatCard
+                  title="Projected monthly spend"
+                  value={moneyInsights.projection}
+                  context="If current trend continues"
+                  icon="📈"
+                />
+
+                <InsightMessageCard
+                  title="Top spending category"
+                  highlight={moneyInsights.topCategory.name}
+                  description={moneyInsights.topCategory.amount}
+                />
+
+                <CategoryDonut data={moneyInsights.categories} />
+
+                <WeeklySpendBar data={moneyInsights.last7Days} />
+              </>
+            )}
           </>
         )}
       </div>
 
       <BottomNavigation />
-    </div>
-  );
-};
-
-const InsightCard = ({ title, description, value }) => {
-  return (
-    <div className="insight-card">
-      <div className="insight-card-top">
-        <span className="insight-card-title">{title}</span>
-      </div>
-      <div className="insight-card-value">{value}</div>
-      <div className="insight-card-desc">{description}</div>
     </div>
   );
 };

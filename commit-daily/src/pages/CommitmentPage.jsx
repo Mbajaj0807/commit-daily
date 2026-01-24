@@ -10,6 +10,7 @@ import entriesService from '../services/entries.service';
 import quotesService from '../services/quotes.service';
 import { Plus } from 'lucide-react';
 import '../styles/commitment.css';
+import { getTodayIST } from '../utils/date.';
 
 const CommitmentPage = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const CommitmentPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [goals, setGoals] = useState([]);
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().split('T')[0],
+    date: getTodayIST ,
     rating: 0,
     goalStatus: {},
     notes: '',

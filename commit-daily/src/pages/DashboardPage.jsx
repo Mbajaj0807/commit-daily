@@ -144,17 +144,14 @@ const DashboardPage = () => {
   return (
     <div className="dashboard-page">
       {/* Header */}
-      <div className="dashboard-header">
-        <div className="dashboard-logo">
-          <div className="dashboard-logo-icon">
-            <div className="dashboard-logo-circles">
-              <div className="dashboard-logo-circle"></div>
-              <div className="dashboard-logo-circle small"></div>
-              <div className="dashboard-logo-circle"></div>
-            </div>
-          </div>
-          <span>Commit Daily</span>
-        </div>
+<div className="dashboard-header">
+  <div className="dashboard-logo">
+    <img 
+      src="/logo.png" 
+      alt="Commit Daily Logo" 
+      className="dashboard-logo-img"
+    />
+  </div>
         
         {/* Update Today Button - Top Right */}
         <div className="dashboard-header-actions">

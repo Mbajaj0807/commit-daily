@@ -10,6 +10,7 @@ import GoalsPage from './pages/GoalsPage';
 import MoneyPage from './pages/MoneyPage';
 import InsightsPage from './pages/InsightPage';
 import authService from './services/auth.service';
+import ProfilePage from './pages/ProfilePage';
 import './styles/auth.css';
 
 // Protected Route Component
@@ -104,44 +105,7 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <div style={{ padding: '20px', textAlign: 'center' }}>
-                <h1>Profile</h1>
-                <p>Coming soon...</p>
-                <button 
-                  onClick={() => {
-                    authService.logout();
-                    window.location.href = '/login';
-                  }}
-                  style={{
-                    padding: '12px 24px',
-                    background: '#ff3b30',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    marginTop: '20px'
-                  }}
-                >
-                  Logout
-                </button>
-                <button 
-                  onClick={() => window.history.back()}
-                  style={{
-                    padding: '12px 24px',
-                    background: '#007AFF',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    marginTop: '10px',
-                    marginLeft: '10px'
-                  }}
-                >
-                  Go Back
-                </button>
-              </div>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />

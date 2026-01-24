@@ -3,14 +3,15 @@ import { Plus } from "lucide-react";
 import BottomNavigation from "../components/layout/BottomNavigation";
 import ExpenseItem from "../components/finance/ExpenseItem";
 import MoneyDateHeader from "../components/finance/MoneyDateHeader";
-import financeService from "../services/finance.service";
 import AddExpenseForm from "../components/finance/AddExpenseForm";
-
+import financeService from "../services/finance.service";
+import {getTodayIST} from "../utils/date."
 import "../styles/finance.css";
+
 
 const MoneyPage = () => {
   const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
+    getTodayIST
   );
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,19 +37,15 @@ const MoneyPage = () => {
     }
   };
 
-  /* ---------------- Add Expense ---------------- */
-
-  const handleAddExpense = async (expenseData) => {
+  /* -------- ADD EXPENSE HANDLER (FIX) -------- */
+  const handleSubmitExpense = async (expenseData) => {
     await financeService.addExpense({
       ...expenseData,
       date: selectedDate,
     });
 
-    // refresh list
     fetchExpensesForDate(selectedDate);
   };
-
-  /* ---------------- Date Navigation ---------------- */
 
   const goToPreviousDay = () => {
     const d = new Date(selectedDate);
@@ -67,7 +64,7 @@ const MoneyPage = () => {
   };
 
   const formatDateLabel = () => {
-    const today = new Date().toISOString().split("T")[0];
+    const today = getTodayIST;
     if (selectedDate === today) return "Today";
 
     return new Date(selectedDate).toLocaleDateString("en-IN", {
@@ -79,7 +76,6 @@ const MoneyPage = () => {
 
   return (
     <div className="money-page">
-      {/* Header */}
       <div className="money-header">
         <h1 className="money-title">Money</h1>
 
@@ -91,7 +87,6 @@ const MoneyPage = () => {
         </button>
       </div>
 
-      {/* Date Selector */}
       <MoneyDateHeader
         dateLabel={formatDateLabel()}
         onPrevDay={goToPreviousDay}
@@ -99,7 +94,6 @@ const MoneyPage = () => {
         onOpenCalendar={openCalendar}
       />
 
-      {/* Expenses */}
       <div className="money-content">
         {loading ? (
           <div className="loading">Loading expenses...</div>
@@ -121,11 +115,10 @@ const MoneyPage = () => {
         )}
       </div>
 
-      {/* Add Expense Modal */}
       {showAddExpense && (
         <AddExpenseForm
           onClose={() => setShowAddExpense(false)}
-          onSubmit={handleAddExpense}
+          onSubmit={handleSubmitExpense}
         />
       )}
 

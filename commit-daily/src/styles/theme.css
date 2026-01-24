@@ -1,0 +1,93 @@
+/* ---------------------------
+   Global App Theme
+---------------------------- */
+
+/* Font import (clean, app-like) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Brand */
+  --primary: #7B61FF;
+  --primary-soft: #F3F0FF;
+
+  /* Text */
+  --text-main: #0F172A;
+  --text-muted: #6B7280;
+  --text-light: #9CA3AF;
+
+  /* Backgrounds */
+  --bg-main: #fcf8f7;
+  --bg-card: #FFFFFF;
+
+  /* Borders & Radius */
+  --border-light: #EDEEF2;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  /* Shadows */
+  --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.06);
+
+  /* Spacing */
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 16px;
+  --space-lg: 24px;
+}
+
+/* ---------------------------
+   Base Reset
+---------------------------- */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-main);
+}
+
+/* ---------------------------
+   App Containers
+---------------------------- */
+.app-page {
+  min-height: 100vh;
+  padding-bottom: 88px; /* bottom nav */
+}
+
+/* ---------------------------
+   Card (used everywhere)
+---------------------------- */
+.app-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-lg);
+}
+
+/* ---------------------------
+   Titles
+---------------------------- */
+.app-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.app-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ---------------------------
+   Section Headers
+---------------------------- */
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}

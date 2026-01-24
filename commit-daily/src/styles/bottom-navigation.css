@@ -1,0 +1,86 @@
+/* ================================
+   Bottom Navigation (Mobile First)
+================================ */
+
+:root {
+  --nav-bg: #ffffff;
+  --nav-border: #e5e7eb;
+  --nav-active: #7b61ff;
+  --nav-muted: #9ca3af;
+  --nav-shadow: 0 -6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: var(--nav-bg);
+  border-top: 1px solid var(--nav-border);
+  box-shadow: var(--nav-shadow);
+
+  padding: 10px 8px 14px;
+  z-index: 1000;
+}
+
+.bottom-nav-items {
+  max-width: 420px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  background: none;
+  border: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--nav-muted);
+
+  cursor: pointer;
+}
+
+.bottom-nav-icon {
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.bottom-nav-item.active {
+  color: var(--nav-active);
+}
+
+.bottom-nav-item.active .bottom-nav-icon {
+  background: rgba(123, 97, 255, 0.12);
+  color: var(--nav-active);
+}
+
+.bottom-nav-label {
+  line-height: 1;
+}
+
+/* iOS safe area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav {
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+  }
+}
