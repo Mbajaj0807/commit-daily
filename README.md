@@ -57,4 +57,5 @@ Auth: JWT
 
 Architecture: Insight-driven backend APIs
 
-Deployment: Render
+Deployment: AWS EC2
+
