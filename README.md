@@ -1,61 +1,64 @@
-Commit Daily
+# Commit Daily 🚀
 
-Commit Daily is a mobile-first discipline and personal finance app that helps users build consistency, track daily goals, and understand spending behavior through meaningful insights.
+> A mobile-first discipline & money tracking system  
+> focused on **consistency, awareness, and insight-driven behavior**
 
-What it does
+---
 
-Track daily goals (boolean & numeric)
+## ✨ What is Commit Daily?
 
-Log expenses day-wise with categories & notes
+**Commit Daily** helps users:
+- Build discipline through daily goals
+- Track expenses without friction
+- Understand behavior via backend-generated insights
 
-Maintain streaks and discipline cycles
+This is not a CRUD app.  
+The backend **analyzes patterns**, the frontend only visualizes them.
 
-Generate insights, not just logs
+---
 
-Key Features
-Goals
+## 🧠 Core Features
 
-Personal rules instead of tasks
+### 🎯 Goals
+- Daily rules (boolean & numeric)
+- Streak-based consistency
+- Category-wise tracking
 
-Daily completion tracking
+### 💰 Money
+- Day-wise expense logging
+- Pocket-money based cycles (not calendar months)
+- Silent spend detection (expenses without notes)
+- Monthly spend projection
 
-Category-based organization
+### 📊 Insights Engine
+Generated entirely on the backend:
+- Total & average spend
+- Top spending category
+- Category breakdown (pie-ready)
+- 7-day trend (bar-ready)
+- Spending heatmap
+- Silent spending alerts
 
-Money
+---
 
-Daily expense tracking
+## 🏗 Tech Stack
 
-Pocket-money based cycles (not calendar months)
+| Frontend | React (Mobile-first UI) |
+| Backend | Node.js, Express |
+| Database | MongoDB |
+| Auth | JWT |
+| Architecture | Insight-driven APIs |
+| Deployment | Render |
 
-Silent spending detection
+---
 
-Monthly spend projection
+## 🚧 Status
 
-Insights Engine
+Actively evolving.  
+Designed to demonstrate **backend engineering + system design skills**.
 
-Backend-generated insights like:
+---
 
-Total & average spend
+## 👤 Author
 
-Top spending category
-
-7-day spend trend
-
-Category breakdown (pie-ready)
-
-Spending heatmap
-
-Silent spend alerts
-
-Tech Stack
-
-Frontend: React (mobile-first UI)
-
-Backend: Node.js, Express, MongoDB
-
-Auth: JWT
-
-Architecture: Insight-driven backend APIs
-
-Deployment: AWS EC2
-
+**Manan Bajaj**    
