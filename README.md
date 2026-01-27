@@ -1,5 +1,11 @@
 # Commit Daily 🚀
 
+<p align="center">
+  <img src="./screenshots/dashboard.png" width="30%" />
+  <img src="./screenshots/money.png" width="30%" />
+  <img src="./screenshots/insights.png" width="30%" />
+</p>
+
 > A mobile-first discipline & money tracking system  
 > focused on **consistency, awareness, and insight-driven behavior**
 
@@ -62,3 +68,4 @@ Designed to demonstrate **backend engineering + system design skills**.
 ## 👤 Author
 
 **Manan Bajaj**    
+
